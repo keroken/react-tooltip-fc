@@ -2,10 +2,12 @@ import React, { useRef, useState } from 'react';
 import { MyPortal } from './MyPortal';
 import './App.css';
 
-export const Tooltip = (width = 256, space = 16, children, text) => {
+export const Tooltip = (props) => {
   const [visible, setVisible] = useState(false);
   const [style, setStyle] = useState({});
   const targetRef = useRef(null);
+  const width = 256;
+  const space = 16;
   
   const showTooltip = () => {
     const style = { width: width };
@@ -15,7 +17,7 @@ export const Tooltip = (width = 256, space = 16, children, text) => {
     style.left = Math.max(space, style.left);
     style.left = Math.min(style.left, document.body.clientWidth - width - space);
 
-    if (dimensions.top > window.innerHeight / 2) {
+    if (dimensions.top < window.innerHeight / 2) {
       style.top = dimensions.top + dimensions.height + space;
     } else {
       style.bottom = (window.innerHeight - dimensions.top) + space;
@@ -30,22 +32,22 @@ export const Tooltip = (width = 256, space = 16, children, text) => {
 
   return (
     <span
-      onMouseOver={() => showTooltip}
-      onMouseOut={() => hideTooltip}
+      onMouseOver={showTooltip}
+      onMouseOut={hideTooltip}
       className="tooltip-trigger-text"
       ref={targetRef}
     >
-      children
-      {visible && (
+      {props.children}
+      {visible &&
         <MyPortal>
           <div
             className="tooltip-body"
             style={style}
           >
-            {text}
+            {props.text}
           </div>
         </MyPortal>
-      )}
+      }
     </span>
   );
 }
