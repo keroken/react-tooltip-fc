@@ -6,7 +6,7 @@ export const Tooltip = (props) => {
   const [visible, setVisible] = useState(false);
   const [style, setStyle] = useState({});
   const targetRef = useRef(null);
-  const width = 256;
+  const width = 200;
   const space = 16;
   
   const showTooltip = () => {
