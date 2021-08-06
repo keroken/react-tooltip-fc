@@ -45,6 +45,7 @@ export const Tooltip = (props) => {
             style={style}
           >
             {props.text}
+            <span className="tooltip-tail" />
           </div>
         </MyPortal>
       }
