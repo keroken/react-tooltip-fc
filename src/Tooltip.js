@@ -1,6 +1,6 @@
 import React, { useRef, useState } from 'react';
 import { MyPortal } from './MyPortal';
-import './App.css';
+import styled from 'styled-components';
 
 export const Tooltip = (props) => {
   const [visible, setVisible] = useState(false);
@@ -31,7 +31,7 @@ export const Tooltip = (props) => {
   }
 
   return (
-    <span
+    <TooltipTriggerText
       onMouseOver={showTooltip}
       onMouseOut={hideTooltip}
       className="tooltip-trigger-text"
@@ -40,15 +40,43 @@ export const Tooltip = (props) => {
       {props.children}
       {visible &&
         <MyPortal>
-          <div
+          <TooltipBody
             className="tooltip-body"
             style={style}
           >
             {props.text}
-            <span className="tooltip-tail" />
-          </div>
+            <TooltipTail className="tooltip-tail" />
+          </TooltipBody>
         </MyPortal>
       }
-    </span>
+    </TooltipTriggerText>
   );
 }
+
+const TooltipTriggerText = styled.span`
+  border-bottom: 1px dashed grey;
+`;
+
+const TooltipBody = styled.div`
+  position: fixed;
+  padding: 8px;
+  background: #333;
+  color: white;
+  box-shadow: 2px 2px 3px rgba(0 ,0, 0, 0.3);
+  text-align: center;
+  font-size: 16px;
+  border-radius: 4px;
+`;
+
+const TooltipTail = styled.span`
+  position: absolute;
+  bottom: 0;
+  left: calc(50% - 7px);
+  width: 10px;
+  height: 10px;
+  background: #333;
+  content: '';
+  transform: rotate(45deg);
+  transform-origin: 0 10px;
+  box-shadow: 2px 2px 3px rgba(0 ,0, 0, 0.3);
+`;
