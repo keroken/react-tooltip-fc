@@ -1,10 +1,11 @@
 import React, { useRef, useState } from 'react';
 import { MyPortal } from './MyPortal';
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 
 export const Tooltip = (props) => {
   const [visible, setVisible] = useState(false);
   const [style, setStyle] = useState({});
+  const [isTop, setIsTop] = useState(true);
   const targetRef = useRef(null);
   const width = 200;
   const space = 16;
@@ -19,8 +20,10 @@ export const Tooltip = (props) => {
 
     if (dimensions.top < window.innerHeight / 2) {
       style.top = dimensions.top + dimensions.height + space;
+      setIsTop(true);
     } else {
       style.bottom = (window.innerHeight - dimensions.top) + space;
+      setIsTop(false);
     }
     setVisible(true);
     setStyle(style)
@@ -45,7 +48,7 @@ export const Tooltip = (props) => {
             style={style}
           >
             {props.text}
-            <TooltipTail className="tooltip-tail" />
+            <TooltipTail className="tooltip-tail" isTop={isTop} />
           </TooltipBody>
         </MyPortal>
       }
@@ -70,7 +73,13 @@ const TooltipBody = styled.div`
 
 const TooltipTail = styled.span`
   position: absolute;
-  bottom: 0;
+  ${({ isTop }) => isTop ?
+    css`
+      top: -10px;
+    ` : css`
+      bottom: 0;
+    `
+  }
   left: calc(50% - 7px);
   width: 10px;
   height: 10px;
