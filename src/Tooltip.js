@@ -1,6 +1,7 @@
 import React, { useRef, useState } from 'react';
+import { TransitionEasings, TransitionSpeeds } from './styles';
 import { MyPortal } from './MyPortal';
-import styled, { css } from 'styled-components';
+import styled, { css, keyframes } from 'styled-components';
 
 export const Tooltip = (props) => {
   const [visible, setVisible] = useState(false);
@@ -56,6 +57,17 @@ export const Tooltip = (props) => {
   );
 }
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+    transform: translate3d(0, -8px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+`;
+
 const TooltipTriggerText = styled.span`
   border-bottom: 1px dashed grey;
 `;
@@ -69,6 +81,7 @@ const TooltipBody = styled.div`
   text-align: center;
   font-size: 16px;
   border-radius: 4px;
+  animation: ${fadeIn} ${TransitionSpeeds.Slow} ${TransitionEasings.Enter} 0s;
 `;
 
 const TooltipTail = styled.span`
