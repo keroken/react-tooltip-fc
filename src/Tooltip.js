@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react';
-import { TransitionEasings, TransitionSpeeds } from './styles';
+import { Easings, Speeds } from './styles/Transitions';
 import { MyPortal } from './MyPortal';
 import styled, { css, keyframes } from 'styled-components';
 
@@ -81,7 +81,7 @@ const TooltipBody = styled.div`
   text-align: center;
   font-size: 16px;
   border-radius: 4px;
-  animation: ${fadeIn} ${TransitionSpeeds.Slow} ${TransitionEasings.Enter} 0s;
+  animation: ${fadeIn} ${Speeds.Slow} ${Easings.Enter} 0s;
 `;
 
 const TooltipTail = styled.span`
